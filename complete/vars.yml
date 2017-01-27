@@ -1,0 +1,5 @@
+image: ansumanverma/gs-spring-boot-docker
+name:  hellospring
+src_port: 8080
+dest_port: 8080
+privileged: true

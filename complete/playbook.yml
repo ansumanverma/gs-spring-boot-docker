@@ -1,0 +1,20 @@
+---
+- name: Create Docker Container
+  hosts: webservers
+  remote_user: osboxes
+  tasks:
+    - name: include variables
+      include_vars: vars.yml
+    - name: include variables
+      service: name=docker  state=started
+    - name: Create Container
+      docker_container:
+        name: "{{ name }}"
+        image: "{{ image }}"
+        ports:
+          - "{{ src_port }}:{{ dest_port }}"
+        privileged: "{{ privileged }}"
+    - name: check container status
+      command: docker ps
+      register: result
+    - debug: var=result.stdout
